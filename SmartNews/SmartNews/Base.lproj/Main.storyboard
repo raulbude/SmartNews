@@ -143,7 +143,7 @@
                                                 <rect key="frame" x="-0.5" y="603" width="375" height="0.0"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="s5r-Ai-nQs" style="IBUITableViewCellStyleDefault" id="5of-ic-hPy">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basicCell" textLabel="s5r-Ai-nQs" style="IBUITableViewCellStyleDefault" id="5of-ic-hPy">
                                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5of-ic-hPy" id="CFh-Tk-Jr8">
@@ -211,7 +211,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="scrollView" destination="N9a-d9-8J6" id="2hJ-uq-BxX"/>
-                        <outlet property="tableView" destination="FiR-zc-Dp0" id="Wzz-Hk-bg7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mzw-em-bPy" userLabel="First Responder" sceneMemberID="firstResponder"/>

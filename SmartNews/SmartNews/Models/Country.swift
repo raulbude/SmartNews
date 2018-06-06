@@ -8,7 +8,12 @@
 
 import Foundation
 
-enum Country: String {
+enum Country: String, CountryCollection {
+
+    public static var allCountries: [Country] {
+        return Array(self.countries())
+    }
+
     case Argentina = "ar"
     case Australia = "au"
     case Austria = "at"
@@ -65,6 +70,20 @@ enum Country: String {
             return self.rawValue.camelCaps
         }
     }
+
+    static func countries() -> AnySequence<Country> {
+        return AnySequence { () -> AnyIterator<Country> in
+            var raw = 0
+            return AnyIterator {
+                let current: Country = withUnsafePointer(to: &raw) { $0.withMemoryRebound(to: self, capacity: 1) { $0.pointee } }
+                guard current.hashValue == raw else {
+                    return nil
+                }
+                raw += 1
+                return current
+            }
+        }
+    }
 }
 
 extension String {
@@ -83,3 +102,9 @@ extension String {
         return newString
     }
 }
+
+protocol CountryCollection: Hashable {
+    static func countries() -> AnySequence<Self>
+    static var allCountries: [Self] { get }
+}
+
