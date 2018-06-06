@@ -9,15 +9,21 @@
 import UIKit
 
 class NewsPresenterTableViewController: UITableViewController {
+    // MARK: - Properties
+
+    var articles: [Article]?
+    var country: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        getArticles()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        tableView.register(NewsPresenterTableViewCell.self, forCellReuseIdentifier: "newsPresenterTableViewCell")
+    }
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    private func getArticles() {
+        let networkManager = NetworkManager(country: country!)
+        articles = networkManager.getArticles()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,15 +43,11 @@ class NewsPresenterTableViewController: UITableViewController {
         return 0
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "newsPresenterTableViewCell", for: indexPath)
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
