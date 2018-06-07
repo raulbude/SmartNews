@@ -8,9 +8,11 @@
 
 import UIKit
 
-class SelectCountryViewController: UITableViewController {
+class SelectCountryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
     // MARK: - Properties
 
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak private var scrollView: UIScrollView!
 
     // MARK: - UIViewController
@@ -18,10 +20,12 @@ class SelectCountryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "basicCell")
+        setupUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         scrollView.isScrollEnabled = false
     }
 
@@ -29,18 +33,26 @@ class SelectCountryViewController: UITableViewController {
 
     @IBAction private func expandTapped(_ sender: Any) {
         scrollView.isScrollEnabled = true
-
+        scrollView.setContentOffset(tableView.frame.origin, animated: true)
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    private func setupUI() {
+        scrollView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "FirstScreenImage"))
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "basicCell")
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
         cell.textLabel?.text = Country.allCountries[indexPath.item].description
 
         return cell
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Country.allCountries.count
     }
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
 }

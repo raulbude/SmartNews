@@ -67,7 +67,7 @@ enum Country: String, CountryCollection {
         switch self {
         case .Argentina, .Australia, .Austria, .Belgium, .Brazil, .Bulgaria, .Canada, .China, .Colombie, .Cuba, .CzechRepublic, .France , .Greece, .Hungary, .India, .Indonesia, .Ireland, .Israel, .Italy, .Japan, .Latvia, .Lithuania, .Mexico, .Morocco, .Netherlands, .NewZealand, .Nigeria, .Norway, .Philippines, .Poland, .Portugal, .Romania, .Russia, .SaudiArabia, .Serbia, .Singapore, .Slovakia, .Slovenia, .SouthAfrica, .SouthKorea, .Sweden, .Switzerland, .Thailand, .Turkey, .Ukraine, .UnitedKingdom, .UnitedStates, .Venezuela:
 
-            return self.rawValue.camelCaps
+            return String(describing: self).camelCaps
         }
     }
 
