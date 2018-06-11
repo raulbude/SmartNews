@@ -139,8 +139,8 @@
                                                 <color key="textColor" red="1" green="0.57322762169999997" blue="0.22921586690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FiR-zc-Dp0">
-                                                <rect key="frame" x="0.0" y="926" width="375" height="667"/>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FiR-zc-Dp0">
+                                                <rect key="frame" x="0.0" y="678" width="375" height="667"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basicCell" textLabel="s5r-Ai-nQs" style="IBUITableViewCellStyleDefault" id="5of-ic-hPy">
@@ -160,7 +160,7 @@
                                                             </subviews>
                                                         </tableViewCellContentView>
                                                         <connections>
-                                                            <segue destination="Bs2-2z-eOF" kind="showDetail" id="577-2K-aIw"/>
+                                                            <segue destination="Bs2-2z-eOF" kind="showDetail" id="MoJ-yR-WLp"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -173,7 +173,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="VRu-wD-ffw" firstAttribute="top" secondItem="DgR-yT-oGg" secondAttribute="top" constant="30" id="1Fc-UK-5eN"/>
-                                            <constraint firstItem="FiR-zc-Dp0" firstAttribute="top" secondItem="VH1-3F-MI7" secondAttribute="bottom" constant="700" id="6Lm-vz-Ks6"/>
+                                            <constraint firstItem="FiR-zc-Dp0" firstAttribute="top" secondItem="VH1-3F-MI7" secondAttribute="bottom" multiplier="3" id="6Lm-vz-Ks6"/>
                                             <constraint firstItem="VH1-3F-MI7" firstAttribute="top" secondItem="mZY-1f-Rhr" secondAttribute="bottom" constant="30" id="Udx-QG-dTL"/>
                                             <constraint firstItem="mZY-1f-Rhr" firstAttribute="top" secondItem="VRu-wD-ffw" secondAttribute="bottom" constant="20" id="Vu4-tF-iMf"/>
                                             <constraint firstItem="VRu-wD-ffw" firstAttribute="centerX" secondItem="DgR-yT-oGg" secondAttribute="centerX" id="hII-D9-FOA"/>
@@ -214,8 +214,10 @@
                         </attributedString>
                     </navigationItem>
                     <connections>
+                        <outlet property="contentView" destination="DgR-yT-oGg" id="53f-AT-MqC"/>
                         <outlet property="scrollView" destination="N9a-d9-8J6" id="2hJ-uq-BxX"/>
                         <outlet property="tableView" destination="FiR-zc-Dp0" id="7u1-oY-6b5"/>
+                        <outlet property="tableViewHeightConstraint" destination="D4M-RD-6zK" id="R0H-UA-mIE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mzw-em-bPy" userLabel="First Responder" sceneMemberID="firstResponder"/>

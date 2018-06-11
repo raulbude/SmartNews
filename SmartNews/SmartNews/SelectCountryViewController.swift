@@ -8,13 +8,17 @@
 
 import UIKit
 
-class SelectCountryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SelectCountryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
 
     // MARK: - Properties
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak private var scrollView: UIScrollView!
 
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    private var cellsHeight: CGFloat = 0
+    
     // MARK: - UIViewController
 
     override func viewDidLoad() {
@@ -32,8 +36,11 @@ class SelectCountryViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Private Functions
 
     @IBAction private func expandTapped(_ sender: Any) {
+        tableViewHeightConstraint.constant = cellsHeight
         scrollView.isScrollEnabled = true
         scrollView.setContentOffset(tableView.frame.origin, animated: true)
+        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height + cellsHeight)
+        scrollView.autoresizingMask = UIViewAutoresizing.flexibleHeight
     }
 
     private func setupUI() {
@@ -44,6 +51,7 @@ class SelectCountryViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
         cell.textLabel?.text = Country.allCountries[indexPath.item].description
+        cellsHeight = indexPath.row == 0 ? cell.frame.height * CGFloat(integerLiteral: Country.allCountries.count) : cellsHeight
 
         return cell
     }
@@ -52,7 +60,7 @@ class SelectCountryViewController: UIViewController, UITableViewDataSource, UITa
         return Country.allCountries.count
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "selectCountryToTableVC", sender: self)
     }
 }
