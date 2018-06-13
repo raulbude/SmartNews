@@ -10,13 +10,11 @@ import UIKit
 
 class NewsPresenterTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel?
+    @IBOutlet weak var descriptionLabel: UILabel?
 
-    var vm: NewsPresenterCellVM? {
-        didSet{
-            titleLabel.text = vm?.title
-            descriptionLabel.text = vm?.description
-        }
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
+
 }

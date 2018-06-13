@@ -23,9 +23,9 @@ final class NetworkManager {
 
     // MARK: - Functions
 
-    func getArticles() -> [Article] {
+    func getArticles(completion: @escaping (_ article: [Article]) -> Void) {
         guard let urlJson = URL(string: "\(url)country=\(country)&apiKey=\(apiKey)") else {
-            return []
+            return
         }
         var articles = [Article]()
 
@@ -36,20 +36,18 @@ final class NetworkManager {
                 if let articlesArray = jsonObj!.value(forKey: "articles") as? NSArray {
                     for article in articlesArray {
                         if let articleDict = article as? NSDictionary {
-                            guard let title = articleDict.value(forKey: "title") as? String,
-                                let description = articleDict.value(forKey: "description") as? String,
-                                let date = articleDict.value(forKey: "publishedAt") as? String,
-                                let author = articleDict.value(forKey: "author") as? String,
-                                let url = articleDict.value(forKey: "url") as? String else {
-                                    return
-                            }
-                            articles.append(Article(title: title, author: author, description: description, articleUrl: url, datePublished: date))
+                            let title = articleDict.value(forKey: "title") as? String
+                            let description = articleDict.value(forKey: "description") as? String
+                            let date = articleDict.value(forKey: "publishedAt") as? String
+                            let author = articleDict.value(forKey: "author") as? String
+                            let url = articleDict.value(forKey: "url") as? String
+                            articles.append(Article(title: title ?? "" , author: author ?? "" , description: description ?? "" , articleUrl: url ?? "", datePublished: date ?? ""))
                         }
                     }
+                    completion(articles)
                 }
 
             }
             }.resume()
-        return articles
     }
 }
