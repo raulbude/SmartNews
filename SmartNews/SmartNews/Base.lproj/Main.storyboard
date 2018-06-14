@@ -197,10 +197,10 @@
             </objects>
             <point key="canvasLocation" x="-460" y="242"/>
         </scene>
-        <!--View Controller-->
+        <!--Selected News View Controller-->
         <scene sceneID="5Og-NC-Q9U">
             <objects>
-                <viewController id="cNL-Jh-vWi" sceneMemberID="viewController">
+                <viewController id="cNL-Jh-vWi" customClass="SelectedNewsViewController" customModule="SmartNews" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Uvo-ur-cl8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -245,6 +245,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hJL-1Q-15U"/>
                     </view>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="iOL-BQ-1K7" id="xJR-7m-yMs"/>
+                        <outlet property="newsImageView" destination="jnz-Lx-MEl" id="PAs-1Y-Vol"/>
+                        <outlet property="titleLabel" destination="JPE-En-vtH" id="cNw-oO-Rnl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0m-EC-JMo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -19,6 +19,7 @@
 		1C3E851F20CE829500833E67 /* SelectCountryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3E851E20CE829500833E67 /* SelectCountryTableViewController.swift */; };
 		1C98CEC420C6EAE200FE24A3 /* SelectCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C98CEC320C6EAE200FE24A3 /* SelectCountryViewController.swift */; };
 		1C98CEC620C7F48D00FE24A3 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C98CEC520C7F48D00FE24A3 /* Country.swift */; };
+		1CB54BF520D1772B0097F811 /* SelectedNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB54BF420D1772B0097F811 /* SelectedNewsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		1C3E851E20CE829500833E67 /* SelectCountryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountryTableViewController.swift; sourceTree = "<group>"; };
 		1C98CEC320C6EAE200FE24A3 /* SelectCountryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountryViewController.swift; sourceTree = "<group>"; };
 		1C98CEC520C7F48D00FE24A3 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		1CB54BF420D1772B0097F811 /* SelectedNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedNewsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				1C181F4A208B530100E91A79 /* Info.plist */,
 				1C98CEC320C6EAE200FE24A3 /* SelectCountryViewController.swift */,
 				1C3E851E20CE829500833E67 /* SelectCountryTableViewController.swift */,
+				1CB54BF420D1772B0097F811 /* SelectedNewsViewController.swift */,
 			);
 			path = SmartNews;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				1C181F3F208B530000E91A79 /* AppDelegate.swift in Sources */,
 				1C2ABD5520974A1B0077C036 /* Article.swift in Sources */,
 				1C2ABD5220973C4D0077C036 /* NetworkManager.swift in Sources */,
+				1CB54BF520D1772B0097F811 /* SelectedNewsViewController.swift in Sources */,
 				1C98CEC620C7F48D00FE24A3 /* Country.swift in Sources */,
 				1C181F58208B65D400E91A79 /* NewsPresenterTableViewCell.swift in Sources */,
 				1C181F52208B635A00E91A79 /* NewsPresenterTableViewController.swift in Sources */,
