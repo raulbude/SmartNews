@@ -14,4 +14,5 @@ struct Article {
     let description: String
     let articleUrl: String
     let datePublished: String
+    let urlToImage: String
 }

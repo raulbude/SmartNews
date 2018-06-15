@@ -12,6 +12,7 @@ class NewsPresenterTableViewController: UITableViewController {
     // MARK: - Properties
 
     var articles: [Article]?
+    var indexOfArticleToSend = 0
     var country: String?
 
     override func viewDidLoad() {
@@ -34,8 +35,13 @@ class NewsPresenterTableViewController: UITableViewController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "newsToDetail" {
+            guard let destinationVC = segue.destination as? SelectedNewsViewController else {
+                return
+            }
+            destinationVC.article = articles?[indexOfArticleToSend]
+        }
     }
 
     // MARK: - Table view data source
@@ -49,6 +55,11 @@ class NewsPresenterTableViewController: UITableViewController {
             return 0
         }
         return numberOfRows
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        indexOfArticleToSend = indexPath.row
+        performSegue(withIdentifier: "newsToDetail", sender: self)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

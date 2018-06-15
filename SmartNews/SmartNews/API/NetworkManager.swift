@@ -41,7 +41,8 @@ final class NetworkManager {
                             let date = articleDict.value(forKey: "publishedAt") as? String
                             let author = articleDict.value(forKey: "author") as? String
                             let url = articleDict.value(forKey: "url") as? String
-                            articles.append(Article(title: title ?? "" , author: author ?? "" , description: description ?? "" , articleUrl: url ?? "", datePublished: date ?? ""))
+                            let urlToImage = articleDict.value(forKey: "urlToImage") as? String
+                            articles.append(Article(title: title ?? "" , author: author ?? "" , description: description ?? "" , articleUrl: url ?? "", datePublished: date ?? "", urlToImage: urlToImage ?? ""))
                         }
                     }
                     completion(articles)
