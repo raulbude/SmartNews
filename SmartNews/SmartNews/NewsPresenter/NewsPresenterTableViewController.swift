@@ -12,11 +12,16 @@ class NewsPresenterTableViewController: UITableViewController {
     // MARK: - Properties
 
     var articles: [Article]?
+    var aZ: Bool = false
+    var date: Bool = true
     var indexOfArticleToSend = 0
     var country: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = tableView.backgroundColor
+        navigationController?.navigationBar.barTintColor = tableView.backgroundColor
         getArticles()
 
         let nib = UINib.init(nibName: "NewsPresenterTableViewCell", bundle: nil)
@@ -25,6 +30,18 @@ class NewsPresenterTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
     }
 
+    @IBAction func sortByAZ(_ sender: Any) {
+        aZ = !aZ
+        date = false
+        tableView.reloadData()
+    }
+
+    @IBAction func sortByDate(_ sender: Any) {
+        date = true
+        aZ = true
+        tableView.reloadData()
+    }
+    
     private func getArticles() {
         let networkManager = NetworkManager(country: country!)
         networkManager.getArticles { (respond: [Article]) in
@@ -33,6 +50,14 @@ class NewsPresenterTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+    }
+
+    func before(value1: Article, value2: Article) -> Bool {
+        return value1.title < value2.title
+    }
+
+    func after(value1: Article, value2: Article) -> Bool {
+        return value1.title > value2.title
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,7 +89,7 @@ class NewsPresenterTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "newsPresenterTableViewCell", for: indexPath) as! NewsPresenterTableViewCell
-        guard let article = articles?[indexPath.row] else {
+        guard let article = date ? articles?[indexPath.row] : (aZ ? articles?.sorted(by: before)[indexPath.row] : articles?.sorted(by: after)[indexPath.row]) else {
             return cell
         }
         cell.titleLabel?.text = article.title

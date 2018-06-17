@@ -14,21 +14,42 @@ class SelectedNewsViewController: UIViewController {
     @IBOutlet weak private var descriptionTextView: UITextView!
 
     @IBOutlet weak private var newsImageView: UIImageView!
-    @IBOutlet weak private var shareButton: UIButton!
     var article: Article?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .black
+        navigationController?.navigationBar.barTintColor = .black
+
         setupUI()
     }
 
+    // MARK: - Private functions
+
+    @IBAction private func sharePressed(_ sender: UIButton) {
+        guard let art = article else {
+            return
+        }
+        let message = "\(art.title)"
+        //Set the link to share.
+        if let link = NSURL(string: "\(art.articleUrl)")
+        {
+            let objectsToShare: [Any] = [message,link]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityVC.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.addToReadingList]
+            self.present(activityVC, animated: true, completion: nil)
+        }
+
+    }
     private func setupUI(){
         guard let art = article else {
             return
         }
         titleLabel.text = art.title
-        descriptionTextView.text = art.description
+        descriptionTextView.text = "\(art.description) \n \(art.articleUrl)"
+        descriptionTextView.isEditable = false
+        descriptionTextView.dataDetectorTypes = .link
         guard let url = URL(string: art.urlToImage),
             let data = try? Data(contentsOf: url) else {
                 return
