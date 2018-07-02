@@ -11,23 +11,37 @@ import UIKit
 class NewsPresenterTableViewController: UITableViewController {
     // MARK: - Properties
 
-    var articles: [Article]?
+    var articles: [Article] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     var aZ: Bool = false
     var date: Bool = true
     var indexOfArticleToSend = 0
     var country: String?
+    var isSelectedAllTapped = false
 
+    @IBOutlet weak var viewWithButtons: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = tableView.backgroundColor
-        navigationController?.navigationBar.barTintColor = tableView.backgroundColor
-        getArticles()
 
         let nib = UINib.init(nibName: "NewsPresenterTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "newsPresenterTableViewCell")
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let frame = viewWithButtons.frame
+        viewWithButtons.frame = isSelectedAllTapped ? CGRect(x: 0, y: 0, width: 0, height: 0) : frame
+        viewWithButtons.isHidden = isSelectedAllTapped
+        tableView.reloadInputViews()
     }
 
     @IBAction func sortByAZ(_ sender: Any) {
@@ -40,16 +54,6 @@ class NewsPresenterTableViewController: UITableViewController {
         date = true
         aZ = true
         tableView.reloadData()
-    }
-    
-    private func getArticles() {
-        let networkManager = NetworkManager(country: country!)
-        networkManager.getArticles { (respond: [Article]) in
-            self.articles = respond
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
     }
 
     func before(value1: Article, value2: Article) -> Bool {
@@ -65,7 +69,13 @@ class NewsPresenterTableViewController: UITableViewController {
             guard let destinationVC = segue.destination as? SelectedNewsViewController else {
                 return
             }
-            destinationVC.article = articles?[indexOfArticleToSend]
+            destinationVC.article = articles[indexOfArticleToSend]
+        } else if segue.identifier == "newsToFilter" {
+            guard let destinationVC = segue.destination as? FilterTableViewController else {
+                return
+            }
+            destinationVC.delegate = self
+            destinationVC.country = country
         }
     }
 
@@ -76,10 +86,7 @@ class NewsPresenterTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let numberOfRows = articles?.count else {
-            return 0
-        }
-        return numberOfRows
+        return articles.count
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -89,14 +96,19 @@ class NewsPresenterTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "newsPresenterTableViewCell", for: indexPath) as! NewsPresenterTableViewCell
-        guard let article = date ? articles?[indexPath.row] : (aZ ? articles?.sorted(by: before)[indexPath.row] : articles?.sorted(by: after)[indexPath.row]) else {
-            return cell
-        }
+        let article = date ? articles[indexPath.row] : (aZ ? articles.sorted(by: before)[indexPath.row] : articles.sorted(by: after)[indexPath.row])
+
         cell.titleLabel?.text = article.title
         cell.descriptionLabel?.text = article.description
         cell.contentView.setNeedsLayout()
         cell.contentView.layoutIfNeeded()
 
         return cell
+    }
+}
+
+extension NewsPresenterTableViewController: FilterTableViewControllerDelegate {
+    func sendArticles(_ articles: [Article]) {
+        self.articles = articles
     }
 }

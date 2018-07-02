@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Country: String, CountryCollection {
+enum Country: String, Collection {
 
     public static var allCountries: [Country] {
         return Array(self.countries())
@@ -67,8 +67,18 @@ enum Country: String, CountryCollection {
         switch self {
         case .Argentina, .Australia, .Austria, .Belgium, .Brazil, .Bulgaria, .Canada, .China, .Colombie, .Cuba, .CzechRepublic, .France , .Greece, .Hungary, .India, .Indonesia, .Ireland, .Israel, .Italy, .Japan, .Latvia, .Lithuania, .Mexico, .Morocco, .Netherlands, .NewZealand, .Nigeria, .Norway, .Philippines, .Poland, .Portugal, .Romania, .Russia, .SaudiArabia, .Serbia, .Singapore, .Slovakia, .Slovenia, .SouthAfrica, .SouthKorea, .Sweden, .Switzerland, .Thailand, .Turkey, .Ukraine, .UnitedKingdom, .UnitedStates, .Venezuela:
 
-            return String(describing: self).camelCaps
+            return "\(self)".camelCaps
         }
+    }
+
+    static func getCountryKey(from string: String) -> String {
+        for ctry in Country.allCountries {
+            let countryString = ctry.description
+            if countryString == string {
+                return ctry.rawValue
+            }
+        }
+        return "No Country"
     }
 
     static func countries() -> AnySequence<Country> {
@@ -103,8 +113,9 @@ extension String {
     }
 }
 
-protocol CountryCollection: Hashable {
+protocol Collection: Hashable {
     static func countries() -> AnySequence<Self>
+    static func getCountryKey(from string: String) -> String
     static var allCountries: [Self] { get }
 }
 

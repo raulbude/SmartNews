@@ -19,9 +19,6 @@ class SelectedNewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .black
-        navigationController?.navigationBar.barTintColor = .black
-
         setupUI()
     }
 
